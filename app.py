@@ -33,16 +33,16 @@ class Cards():
         print(self.table)
 
     def shetenva(self):
-        pass
-
+        self.table = []
+        
     def card_gone(self):
-        for card in self.playing_cards:
-            self.cards.pop(self.cards.index(card))
+        for card in self.table:
+            self.playing_cards.pop(self.playing_cards.index(card))
+        self.table = []
 
 
 cards = Cards()
 
-cards.table_cards('7H')
 
 class Player():
     def __init__(self, cards: list) -> None:
