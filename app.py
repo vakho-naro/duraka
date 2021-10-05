@@ -1,68 +1,73 @@
 import random
 
-values = ['6','7','8','9','10','11','12','13','14']
+values = ['6', '7', '8', '9', '10', '11', '12', '13', '14']
 suites = ['H', 'C', 'D', 'S']
 
 deck = [v + s for s in suites for v in values]
 
 random.shuffle(deck)
-print(deck)
 
 
-class Cards():
+class Cards:
     def __init__(self) -> None:
         self.cards = deck
     
-    def darigeba(self):
+    def dealing(self):
         self.playing_cards = self.cards[-12:]
-
         for card in self.playing_cards:
             self.cards.pop(self.cards.index(card))
+        return self.playing_cards
 
-        self.koziri = self.cards.pop()
-        self.cards.append(self.koziri)
-        print(self.koziri, len(self.cards))
+    def trump(self):
+        self.trump = self.cards.pop()
+        self.cards.insert(0, self.trump)
+        print(f'trump card is {self.trump}')
+        return self.trump[-1]
 
-    def amateba(self):
+    def add_card(self):
         self.playing_cards.append(self.cards.pop())
         print(self.playing_cards)
 
-    def table_cards(self, card):
+
+cards = Cards()
+
+
+class Table:
+    def __init__(self):
         self.table = []
+
+    def table_cards(self, card):
         self.table.append(card)
         print(self.table)
 
-    def shetenva(self):
+    def pick_up(self):
         self.table = []
-        
+
     def card_gone(self):
         for card in self.table:
             self.playing_cards.pop(self.playing_cards.index(card))
         self.table = []
 
 
-cards = Cards()
+class Player:
+    def __init__(self, c: list) -> None:
+        self.cards = c
+        print(self.cards)
 
-
-class Player():
-    def __init__(self, cards: list) -> None:
-        self.cards = cards
-
-    def svla(self):
+    def turn(self):
         print(f'you have: {self.cards}')
         card = input("choose card: ")
-        self.cards.pop(card)
+        self.cards.remove(card)
     
-    def shetenva(self, c):
+    def pick_up(self, c):
         self.cards += c
 
 
-class Computer():
-    def __init__(self, cards: list) -> None:
-        self.cards = cards
+class Computer:
+    def __init__(self, c: list) -> None:
+        self.cards = c
+        print(self.cards)
 
-    def svla(self):
+    def turn(self):
 
         self.cards.pop()
-
-    
